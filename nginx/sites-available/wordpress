@@ -1,0 +1,39 @@
+map $uri $blogname{
+        ~^(?<blogpath>/[^/]+/)files/(.*)        $blogpath ;
+}
+ 
+map $blogname $blogid{
+        default -999;
+        include /var/www/html/wp-content/uploads/nginx-helper/map.conf;
+}
+ 
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+	root /var/www/html;
+	index index.php index.html index.htm;
+
+	# Make site accessible from http://localhost/
+	server_name www.bryanapperson.com;
+	server_name_in_redirect off;
+	include hhvm.conf;
+    include global/restrictions.conf;
+	include global/wordpress-ms-subdir.conf;
+
+	# Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+	#location /RequestDenied {
+	#	proxy_pass http://127.0.0.1:8080;    
+	#}
+
+	#error_page 404 /404.html;
+
+	# redirect server error pages to the static page /50x.html
+	#
+	error_page 500 502 503 504 /50x.html;
+	location = /50x.html {
+		root /usr/share/nginx/html;
+	}
+	location ~* ^.+.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+	access_log off;	log_not_found off; expires max;
+	}
+}
