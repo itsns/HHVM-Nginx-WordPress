@@ -1,4 +1,15 @@
 # WordPress naxsi rules
+#LearningMode;
+SecRulesEnabled;
+#SecRulesDisabled;
+DeniedUrl "/RequestDenied";
+ 
+## check rules
+CheckRule "$SQL &gt;= 8" BLOCK;
+CheckRule "$RFI &gt;= 8" BLOCK;
+CheckRule "$TRAVERSAL &gt;= 4" BLOCK;
+CheckRule "$EVADE &gt;= 4" BLOCK;
+CheckRule "$XSS &gt;= 8" BLOCK;
 
 ### HEADERS
 BasicRule wl:1000,1001,1005,1007,1010,1011,1013,1100,1200,1308,1309,1310,1311,1315 "mz:$HEADERS_VAR:cookie";
