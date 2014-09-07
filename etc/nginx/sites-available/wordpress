@@ -39,6 +39,7 @@ server {
 	#Include Requirements
 	include hhvm.conf;
 	include global/restrictions.conf;
+	include global/wpsecure.conf;
 	include global/wordpress-ms-subdir.conf;
 
 	location ~ .php$ {
