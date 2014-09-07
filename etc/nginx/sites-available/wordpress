@@ -17,7 +17,6 @@ server {
 
 	# Make site accessible from http://localhost/
 	server_name www.bryanapperson.com;
-	server_name_in_redirect off;
 	include hhvm.conf;
 	include global/restrictions.conf;
 	include global/wordpress-ms-subdir.conf;
