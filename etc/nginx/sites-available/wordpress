@@ -1,4 +1,4 @@
-# Multisite WordPress Example
+# For Multisite WordPress - Comment Out if not Using
 
 map $uri $blogname{
         ~^(?<blogpath>/[^/]+/)files/(.*)        $blogpath ;
@@ -8,6 +8,8 @@ map $blogname $blogid{
         default -999;
         include /var/www/html/wp-content/uploads/nginx-helper/map.conf;
 }
+
+# End Multisite Mapping using nginx-helper
  
 server {
 	listen 80 default_server;
@@ -20,11 +22,6 @@ server {
 	include hhvm.conf;
 	include global/restrictions.conf;
 	include global/wordpress-ms-subdir.conf;
-
-	# Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-	#location /RequestDenied {
-	#	proxy_pass http://127.0.0.1:8080;    
-	#}
 
 	error_page 404 /404.html;
 	location = /40x.html {
