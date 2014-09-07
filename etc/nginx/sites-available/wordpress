@@ -1,4 +1,6 @@
+###
 # For Multisite WordPress - Comment Out if not Using
+###
 
 map $uri $blogname{
         ~^(?<blogpath>/[^/]+/)files/(.*)        $blogpath ;
@@ -8,15 +10,22 @@ map $blogname $blogid{
         default -999;
         include /var/www/html/wp-content/uploads/nginx-helper/map.conf;
 }
-
+###
 # End Multisite Mapping using nginx-helper
+###
 
+###
 # Move Fastcgi-cache to RAM
+###
+
 fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=WORDPRESS:100m inactive=60m;
 fastcgi_cache_key "$scheme$request_method$host$request_uri";
 fastcgi_cache_use_stale error timeout invalid_header http_500;
 fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
 
+###
+# WordPress Server Configuration
+###
 
 server {
 	listen 80 default_server;
